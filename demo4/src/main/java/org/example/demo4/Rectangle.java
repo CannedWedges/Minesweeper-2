@@ -1,4 +1,4 @@
-package org.example.demo3;
+package org.example.demo4;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -6,9 +6,9 @@ import javafx.scene.transform.Rotate;
 
 public class Rectangle extends Renderable {
 
-    private final Vector2 size;
-    private final Vector2 position;
-    private final double rotation;
+    private Vector2 size;
+    private Vector2 position;
+    private double rotation;
 
     private int borderSize;
 
@@ -44,6 +44,17 @@ public class Rectangle extends Renderable {
         r = new Rotate(rotation, position.getX(), position.getY());
     }
 
+    public Rectangle setPosition(Vector2 position) {
+
+        this.position = position;
+        updateCorners();
+
+        return this;
+    }
+
+    public Vector2 getPosition() {
+        return this.position;
+    }
 
     @Override
     public void render(GraphicsContext gc) {
