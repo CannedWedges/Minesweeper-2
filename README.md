@@ -1,9 +1,10 @@
-# This is a testing repostory.
+# This is a testing repostory for creating an application with javafx.
 
 
 
 
-# Resources that have been used for this project is listed here (include forums) (ordered by date of reading, by category):
+
+# Resources that have been used for this project (include forums) (ordered by date of reading, by category):
 
 
 ### javafx setup
