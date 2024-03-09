@@ -10,9 +10,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -31,7 +30,7 @@ public class HelloApplication extends Application {
 
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
 
 
         stage.setTitle("Hello!");
@@ -61,7 +60,7 @@ public class HelloApplication extends Application {
                 rectangle.setRotate(rectangle.getRotate() + (rectangle.getX() * Math.random() / 10));
 
             }
-            a.addFirst(1000000000d / (System.nanoTime() - before.get()));
+            a.add(0,1000000000d / (System.nanoTime() - before.get()));
             before.set(System.nanoTime());
 
             if (a.size() > 10) {
