@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>demo6</artifactId>
+    <artifactId>demo7</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>demo6</name>
+    <name>demo7</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <junit.version>5.10.0</junit.version>
 
-        <project.mainDirectory>org.example.demo6</project.mainDirectory>
+        <project.mainDirectory>org.example.demo7</project.mainDirectory>
         <project.mainClassName>HelloApplication</project.mainClassName>
     </properties>
 
@@ -127,7 +127,7 @@
                                 <argument>bin\${project.artifactId}.bat</argument>
 
                                 <argument>--output</argument>
-                                <argument>${project.build.directory}\${name}.exe</argument>
+                                <argument>${project.build.directory}\${project.name}.exe</argument>
                             </arguments>
                         </configuration>
                     </execution>
