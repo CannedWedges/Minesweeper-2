@@ -1,18 +1,12 @@
 package org.example.demo7;
 
 import javafx.application.Platform;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 public class ObjectParticle {
 
 
-
-
     static void asParticle(Rectangle part, double lifetime, Vector2 vel, Vector2 acc, double rotVel, double rotAcc) {
-
 
 
         Vector2 Position = new Vector2(part.getX(), part.getY());
@@ -58,15 +52,11 @@ public class ObjectParticle {
     }
 
 
-
     static void asParticle(Rectangle part) {
         asParticle(part, 3, Vector2.fromPolar(random(50, 100), random(0, 360)), new Vector2(0, 200),
                 random(-1000, 1000), 0
         );
     }
-
-
-
 
 
     private static double random(double min, double max) {

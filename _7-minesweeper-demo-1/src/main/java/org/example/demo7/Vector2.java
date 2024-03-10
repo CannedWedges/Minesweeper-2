@@ -1,7 +1,5 @@
 package org.example.demo7;
 
-import java.util.Vector;
-
 public class Vector2 {
     public double x = 0;
     public double y = 0;

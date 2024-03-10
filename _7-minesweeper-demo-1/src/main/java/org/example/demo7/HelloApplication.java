@@ -40,7 +40,6 @@ public class HelloApplication extends Application {
         startUpdateLoop(stage);
 
 
-
         stage.show();
 
         Main.start(stage, root, canvas);
