@@ -114,6 +114,6 @@ public class Affine2 {
 
     @Override
     public String toString() {
-        return String.format("Affine3 (        1,        0,        0\n          %-6f, %-6f, %-6f\n          %-6f, %-6f, %-6f)", x0, x1, x2, y0, y1, y2);
+        return String.format("Affine2 (        1,        0,        0\n          %-6f, %-6f, %-6f\n          %-6f, %-6f, %-6f)", x0, x1, x2, y0, y1, y2);
     }
 }
