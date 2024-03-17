@@ -9,8 +9,7 @@ public class UpdateAction {
     }
 
     void disconnect() {
-//        HelloApplication.updateActions.remove(this);
-        HelloApplication.queueRemove.add(this);
+        HelloApplication.updateActionRemove.add(this);
     }
 
     void onDisconnect() {

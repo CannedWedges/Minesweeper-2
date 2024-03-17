@@ -58,6 +58,12 @@ public class ObjectParticle {
         );
     }
 
+    static void asParticle(Rectangle part, double power) {
+        asParticle(part, 3, Vector2.fromPolar(power, random(0, 360)), new Vector2(0, 200),
+                random(-1000, 1000), 0
+        );
+    }
+
 
     private static double random(double min, double max) {
         return Math.random() * (max - min) + min;
