@@ -18,8 +18,8 @@ import java.util.List;
 public class HelloApplication extends Application {
 
 
-    public static final int INIT_SCREEN_X = 400;
-    public static final int INIT_SCREEN_Y = 300;
+    public static final int INIT_SCREEN_X = 625;
+    public static final int INIT_SCREEN_Y = 500;
     public static final int UPDATE_RATE = 60;
 
 

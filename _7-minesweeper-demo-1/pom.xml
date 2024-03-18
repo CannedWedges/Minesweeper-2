@@ -96,10 +96,10 @@
                             <executable>echo</executable>
                             <arguments>
                                 <argument>
-                                    @echo off
-                                    set JLINK_VM_OPTIONS=
-                                    set DIR=%~dp0
-                                    start %DIR%javaw.exe %JLINK_VM_OPTIONS% -m ${project.mainDirectory}/${project.mainDirectory}.${project.mainClassName} %*</argument>
+@echo off
+set JLINK_VM_OPTIONS=
+set DIR=%~dp0
+start %DIR%javaw.exe %JLINK_VM_OPTIONS% -m ${project.mainDirectory}/${project.mainDirectory}.${project.mainClassName} %*</argument>
                             </arguments>
                             <outputFile>
                                 ${project.build.directory}\image\bin\${project.artifactId}.bat

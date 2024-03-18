@@ -1,14 +1,14 @@
 package org.example.demo7;
 
 public class UpdateAction {
-    void connect() {
+    final void connect() {
         HelloApplication.updateActions.add(this);
     }
 
     void run(double elapsed) {
     }
 
-    void disconnect() {
+    final void disconnect() {
         HelloApplication.updateActionRemove.add(this);
     }
 

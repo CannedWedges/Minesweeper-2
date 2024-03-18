@@ -12,20 +12,24 @@ public class ImageManager {
 
     public static final Image[] images = initialiseImage();
 
-    public static Image[] initialiseImage() {
+    public static Image[] initialiseImage() throws NullPointerException {
         return new Image[]{
-                new Image("file:img/img1.png"),
-                new Image("file:img/img2.png"),
-                new Image("file:img/img3.png"),
-                new Image("file:img/img4.png"),
-                new Image("file:img/img5.png"),
-                new Image("file:img/img6.png"),
-                new Image("file:img/img7.png"),
-                new Image("file:img/img8.png"),
-                new Image("file:img/img9.png"),
-                new Image("file:img/img10.png"),
-                new Image("file:img/img11.png"),
-                new Image("file:img/img12.png"),
+                new Image(ImageManager.class.getResource("images/img1.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img2.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img3.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img4.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img5.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img6.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img7.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img8.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img9.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img10.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img11.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img12.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img1a.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img2a.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img3a.png").toExternalForm()),
+                new Image(ImageManager.class.getResource("images/img0.png").toExternalForm()),
         };
     }
 

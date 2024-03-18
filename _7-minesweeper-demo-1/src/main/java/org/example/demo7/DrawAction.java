@@ -3,14 +3,14 @@ package org.example.demo7;
 import javafx.scene.canvas.GraphicsContext;
 
 public class DrawAction {
-    void connect() {
+    final void connect() {
         HelloApplication.drawActions.add(this);
     }
 
     void run(GraphicsContext gc) {
     }
 
-    void disconnect() {
+    final void disconnect() {
         HelloApplication.drawActionRemove.add(this);
     }
 
