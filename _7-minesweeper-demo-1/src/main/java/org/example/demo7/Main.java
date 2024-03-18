@@ -65,14 +65,14 @@ public class Main {
         root.setOnMouseMoved(mouseEvent -> {
             //hover effects here
 
-            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
             updateMouseEvent(prevHover, hitPos, mouseConditions);
             prevHover[0] = hitPos[0];
             prevHover[1] = hitPos[1];
         });
 
         root.setOnMouseDragged(mouseEvent -> {
-            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
             updateMouseEvent(prevHover, hitPos, mouseConditions);
             prevHover[0] = hitPos[0];
             prevHover[1] = hitPos[1];
@@ -83,7 +83,7 @@ public class Main {
                 mouseConditions[0] = true;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -92,7 +92,7 @@ public class Main {
                 mouseConditions[1] = true;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -105,7 +105,7 @@ public class Main {
                 mouseConditions[0] = false;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -134,7 +134,7 @@ public class Main {
                 mouseConditions[1] = false;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX(), mouseEvent.getSceneY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
