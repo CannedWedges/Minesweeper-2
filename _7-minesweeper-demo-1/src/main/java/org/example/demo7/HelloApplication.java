@@ -3,7 +3,6 @@ package org.example.demo7;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,10 +17,9 @@ import java.util.List;
 public class HelloApplication extends Application {
 
 
-    public static final int INIT_SCREEN_X = 625;
+    public static final int INIT_SCREEN_X = 500;
     public static final int INIT_SCREEN_Y = 500;
     public static final int UPDATE_RATE = 60;
-
 
 
     public static final Canvas canvas = new Canvas(INIT_SCREEN_X, INIT_SCREEN_Y);
@@ -35,10 +33,14 @@ public class HelloApplication extends Application {
     public static final List<UpdateAction> updateActions = new ArrayList<>(); /* runs before the next frame is drawn */
     public static final List<UpdateAction> updateActionRemove = new ArrayList<>(); /* removes update actions after concurrently executing the actions */
 
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage stage) {
         stage.setScene(scene);
+        stage.setResizable(false);
 
         startUpdateLoop(stage);
 
@@ -46,7 +48,7 @@ public class HelloApplication extends Application {
         stage.show();
 
 
-        new Thread(new Task<Void>(){
+        new Thread(new Task<Void>() {
             @Override
             protected Void call() {
                 Main.start(stage, root, canvas);
@@ -101,10 +103,5 @@ public class HelloApplication extends Application {
         loop.play();
 
         stage.setOnCloseRequest(event -> loop.stop());
-    }
-
-
-    public static void main(String[] args) {
-        launch();
     }
 }

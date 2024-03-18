@@ -2,6 +2,7 @@ package org.example.demo7;
 
 public class GameGrid {
 
+    private final ImageSprite sprite;
     /*
     -1  : undiscovered
     -2  : flagged
@@ -15,13 +16,11 @@ public class GameGrid {
 
      */
     private int state = -1;
-    private final ImageSprite sprite;
     private boolean isHovered = false;
     private boolean isHeld = false;
 
     public GameGrid(double x, double y) {
-        sprite = new ImageSprite(25, 25, ImageManager.images[getIndex(state)], x + 12.5 ,y + 12.5);
-
+        sprite = new ImageSprite(25, 25, ImageManager.images[getIndex(state)], x + 12.5, y + 12.5);
 
 
     }

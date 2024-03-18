@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -17,27 +18,26 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Main {
 
-    private static Image[] images = ImageManager.images;
-
-    public static final int NUM_MINES = 120;
+    public static final int NUM_MINES = 60;
     public static final int BOARD_WIDTH = 20;
     public static final int BOARD_HEIGHT = 15;
     public static final double SHUFFLE_RATIO = 5;
-
     public static final long EXPLORE_THRESHOLD = 100;
-
     public static final boolean DIGS_QUESTION_GRID = true;
-
+    public static final int GRID_SIZE = 25;
     public static boolean[][] mines = new boolean[0][0];
     public static int[][] adjacentMineCount = new int[0][0];
     public static int[][] gameState = new int[0][0];
     public static GameGrid[][] sprites = new GameGrid[0][0];
     public static boolean hasLost = false;
 
-    public static final int GRID_SIZE = 25;
+    public static int numMarkedMines = 0;
+    public static Text numMineDisplay;
+    private static Image[] images = ImageManager.images;
 
     public static void start(Stage stage, Group root, Canvas canvas) {
         Platform.runLater(() -> {
+
             canvas.getGraphicsContext2D().setImageSmoothing(false);
         });
 
@@ -56,23 +56,23 @@ public class Main {
 
         for (int i = 0; i < BOARD_WIDTH; i++) {
             for (int j = 0; j < BOARD_HEIGHT; j++) {
-                sprites[i][j] = new GameGrid(i * GRID_SIZE, j * GRID_SIZE);
+                sprites[i][j] = new GameGrid(i * GRID_SIZE, j * GRID_SIZE + 100);
             }
         }
 
         //set up hover effects
-        int[] prevHover = new int[] {-2, -2};
+        int[] prevHover = new int[]{-2, -2};
         root.setOnMouseMoved(mouseEvent -> {
             //hover effects here
 
-            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
             updateMouseEvent(prevHover, hitPos, mouseConditions);
             prevHover[0] = hitPos[0];
             prevHover[1] = hitPos[1];
         });
 
         root.setOnMouseDragged(mouseEvent -> {
-            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+            int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
             updateMouseEvent(prevHover, hitPos, mouseConditions);
             prevHover[0] = hitPos[0];
             prevHover[1] = hitPos[1];
@@ -83,7 +83,7 @@ public class Main {
                 mouseConditions[0] = true;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -92,7 +92,7 @@ public class Main {
                 mouseConditions[1] = true;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -105,7 +105,7 @@ public class Main {
                 mouseConditions[0] = false;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -134,7 +134,7 @@ public class Main {
                 mouseConditions[1] = false;
 
 
-                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY());
+                int[] hitPos = getPosOnGrid(mouseEvent.getSceneX() - root.getLayoutX(), mouseEvent.getSceneY() - root.getLayoutY() - 100);
                 updateMouseEvent(prevHover, hitPos, mouseConditions);
                 prevHover[0] = hitPos[0];
                 prevHover[1] = hitPos[1];
@@ -145,7 +145,7 @@ public class Main {
                         exploreGrid(hitPos[0], hitPos[1]);
                     } else {
                         //dig current grid
-                        markCurrentGrid(hitPos[0], hitPos[1]);
+                        markGrid(hitPos[0], hitPos[1]);
                     }
 
                 } else if (System.currentTimeMillis() - prevReleaseTime.get() > EXPLORE_THRESHOLD) {
@@ -164,7 +164,16 @@ public class Main {
             }
         });
 
+        //prepare top bar
 
+        Rectangle topBackground = new Rectangle(HelloApplication.INIT_SCREEN_X, 100, Color.color(.7, .7, .75));
+        topBackground.setViewOrder(1);
+
+        numMineDisplay = new Text(100, 20, Integer.toString(NUM_MINES));
+        numMineDisplay.setViewOrder(2);
+
+
+        root.getChildren().add(topBackground);
     }
 
 
@@ -256,7 +265,7 @@ public class Main {
         long millisPerDiagonalRow = 50;
 
 
-        int[] lastCount = new int[] {0};
+        int[] lastCount = new int[]{0};
         long startMillis = System.currentTimeMillis() + loseDelay;
 
         UpdateAction action = new UpdateAction() {
@@ -281,7 +290,6 @@ public class Main {
                                 }
 
 
-
                             }
                         }
                     }
@@ -292,13 +300,20 @@ public class Main {
         action.connect();
     }
 
-    private static void markCurrentGrid(int x, int y) {
+    private static void markGrid(int x, int y) {
+
         if (!hasLost) {
 
             int gridCondition = gameState[x][y];
 
             if (gridCondition == -1 || gridCondition == -2 || gridCondition == -3) { // is empty or any marked grid
-
+                if (gridCondition == -1) {
+                    numMarkedMines++;
+                    changeNumMinesDisplay();
+                } else if (gridCondition == -2) {
+                    numMarkedMines--;
+                    changeNumMinesDisplay();
+                }
                 int nextCondition = switch (gridCondition) {
                     case -1 -> -2;
                     case -2 -> -3;
@@ -310,6 +325,10 @@ public class Main {
                 sprites[x][y].setState(nextCondition);
             }
         }
+    }
+
+    private static void changeNumMinesDisplay() {
+        numMineDisplay.setText(Integer.toString(NUM_MINES - numMarkedMines));
     }
 
     private static boolean exploreGrid(int x, int y) {
@@ -397,9 +416,9 @@ public class Main {
         int y2 = (int) (y / GRID_SIZE);
 //        System.out.printf("%d, %d\n", x2, y2);
         if (x2 < 0 || y2 < 0 || x2 >= BOARD_WIDTH || y2 >= BOARD_HEIGHT) {
-            return new int[] {-2, -2};
+            return new int[]{-2, -2};
         } else {
-            return new int[] {x2, y2};
+            return new int[]{x2, y2};
         }
     }
 
@@ -418,9 +437,6 @@ public class Main {
     }
 
 
-
-
-
     private static boolean[][] generateMines(int width, int height, int exclX, int exclY) {
         /* create initial mines */
         boolean[][] mines = new boolean[width][height];
@@ -430,28 +446,28 @@ public class Main {
         //left
         for (int i = 0; i < exclX - 1; i++) {
             for (int j = 0; j < height; j++) {
-                possibleSpots.add(new int[] {i, j});
+                possibleSpots.add(new int[]{i, j});
             }
         }
 
         //right
         for (int i = exclX + 2; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                possibleSpots.add(new int[] {i, j});
+                possibleSpots.add(new int[]{i, j});
             }
         }
 
         //top
         for (int i = exclX - 1; i < exclX + 2; i++) {
             for (int j = 0; j < exclY - 1; j++) {
-                possibleSpots.add(new int[] {i, j});
+                possibleSpots.add(new int[]{i, j});
             }
         }
 
         //bottom
         for (int i = exclX - 1; i < exclX + 2; i++) {
             for (int j = exclY + 2; j < height; j++) {
-                possibleSpots.add(new int[] {i, j});
+                possibleSpots.add(new int[]{i, j});
             }
         }
 
@@ -498,7 +514,6 @@ public class Main {
     }
 
 
-
     private static Boolean safeReadData2d(boolean[][] data, int width, int height, int x, int y) {
         if (!inBounds(x, y, width, height)) {
             return false;
@@ -524,7 +539,6 @@ public class Main {
         }
         return temp;
     }
-
 
 
     private static void particleDemo() {

@@ -1,9 +1,7 @@
 package org.example.demo7;
 
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class ImageSprite {
 
@@ -17,9 +15,7 @@ public class ImageSprite {
 
     Image img;
 
-    private DrawAction action;
-
-
+    private final DrawAction action;
 
     public ImageSprite(double width, double height) {
         this.width = width;
@@ -27,12 +23,7 @@ public class ImageSprite {
         action = new DrawAction() {
             @Override
             public void run(GraphicsContext gc) {
-//                gc.setFill(Color.rgb(0, 0, 0));
-
-
                 gc.save();
-
-//                gc.fillRect(0, 0, 10, 10);
                 if (r != 0) {
                     gc.translate(x, y);
                     gc.rotate(r);
@@ -115,7 +106,6 @@ public class ImageSprite {
     public void destroy() {
         action.disconnect();
     }
-
 
 
 }

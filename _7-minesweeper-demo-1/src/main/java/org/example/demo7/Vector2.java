@@ -4,6 +4,15 @@ public class Vector2 {
     public double x = 0;
     public double y = 0;
 
+    public Vector2() {
+
+    }
+
+    public Vector2(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public static Vector2 unit() {
         return new Vector2(1, 1);
     }
@@ -15,15 +24,6 @@ public class Vector2 {
     public static Vector2 fromPolar(double radius, double angle) {
         double radian = Math.toRadians(angle);
         return new Vector2(radius * Math.sin(radian), radius * Math.cos(radian));
-    }
-
-    public Vector2() {
-
-    }
-
-    public Vector2(double x, double y) {
-        this.x = x;
-        this.y = y;
     }
 
     public Vector2 add(Vector2 other) {

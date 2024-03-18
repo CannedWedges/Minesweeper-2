@@ -34,8 +34,6 @@ public class ImageManager {
     }
 
 
-
-
     private static Image createFlagImage() {
         Canvas base = new Canvas(25, 25);
         GraphicsContext gc = base.getGraphicsContext2D();
@@ -47,8 +45,6 @@ public class ImageManager {
         /* Rectangle 1 */
         gc.setFill(Color.color(.2, .2, .2));
         gc.fillRect(2, 17, 17, 3);
-
-
 
 
         return createSnapshot(base);
